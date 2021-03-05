@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro Acádemico</title>
+</head>
+
+<body>
+
+    <div class="topbar">
+        <h1 id="title">Hotel Tekapa</h1>
+    </div>
+
+    <hr>
+
+    <div name="linkers" class="nav">
+        <a href="#" name="pages" onclick="hideDivById('register')">Reserve a room</a>
+        <a href="#" name="pages" onclick="hideDivById('rooms')">Our Menu</a>
+        <a href="#" name="pages" onclick="hideDivById('contact')">Contact</a>
+    </div>
+
+    <div class="main">
+
+        <div style="display:none" id="register" name="pages" w3-include-html="{{url_for('register')}}"></div>
+        <div style="display:none" id="rooms" name="pages" w3-include-html="{{url_for('rooms')}}"></div>
+        <div style="display:none" id="logIn" name="pages" w3-include-html="{{url_for('logIn')}}"></div>
+        <div style="display:none" id="createAccount" name="pages" w3-include-html="{{url_for('createAccount')}}"></div>
+        <div style="display:none" id="contact" name="pages" w3-include-html="{{url_for('contact')}}"></div>
+
+    </div>
+
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
+    <script src="/static/script.js"></script>
+</body>
+
+</html>
