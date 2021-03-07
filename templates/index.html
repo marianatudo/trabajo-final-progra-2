@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro Acádemico</title>
+    <title>Hotel Tekapa</title>
 </head>
 
 <body>
@@ -18,7 +18,9 @@
 
     <div name="linkers" class="nav">
         <a href="#" onclick="hideDivById('register')">Reserve a room</a>
-        <a href="#" onclick="hideDivById('rooms')">Our Menu</a>
+        <a href="#" onclick="displayRooms()">Our rooms</a>
+        <a href="#" onclick="hideDivById('aboutUs')">About us</a>
+        <a href="#" onclick="hideDivById('profile')">My profile</a>
         <a href="#" onclick="hideDivById('contact')">Contact</a>
     </div>
 
@@ -29,11 +31,14 @@
         <div style="display:none" id="logIn" name="pages" w3-include-html="{{url_for('logIn')}}"></div>
         <div style="display:none" id="createAccount" name="pages" w3-include-html="{{url_for('createAccount')}}"></div>
         <div style="display:none" id="contact" name="pages" w3-include-html="{{url_for('contact')}}"></div>
+        <div style="display:none" id="profile" name="pages" w3-include-html="{{url_for('profile')}}"></div>
+        <div style="display:none" id="aboutUs" name="pages" w3-include-html="{{url_for('aboutUs')}}"></div>
 
     </div>
 
     <script src="https://www.w3schools.com/lib/w3.js"></script>
-    <script src="/static/script.js"></script>
+    <script src="{{url_for('static', filename='preload.js')}}"></script>
+    <script src="{{url_for('static', filename='script.js')}}"></script>
 </body>
 
 </html>

@@ -30,31 +30,25 @@ function login() {
     }
 }
 
-function goBack() {
-    window.history.back();
-}
-
-
-
-
-
 
 /*
-login functionality begin
-------------------------------------------------------------------------------------------------------------------------------------
+************* login functionality begin
 */
 function checkLogin() {
 
     var user = document.getElementById("user").value;
     var password = document.getElementById("passw").value;
 
-    var userArray = JSON.parse(localStorage.getItem("wUserArray"));
+    var userArray = JSON.parse(localStorage.getItem("lUserArray"));
 
     if (user !== null && user !== "") {
         if (password !== null && password !== "") {
             var canLogin = checkLoginInfo(user, password, userArray);
             if (canLogin === true) {
-                hideDivById("rooms")
+                //need a method to get the role and send it into createSessionUser below
+                var role = getUserRole(user, password, userArray)
+                createSessionUser(user, password, role)
+                displayRooms();
             } else {
                 alert("user or password are not correct");
             }
@@ -79,55 +73,66 @@ function checkLoginInfo(user, password, userArray) {
     return false;
 }
 
-/*
-login functionality end
------------------------------------------------------------------------------------------------------------------------------------
-*/
+function getUserRole(pUser, pPassword, pUserArray) {
+    var role = ""
+    if (pUserArray !== null && pUserArray.length > 0) {
+        var length = pUserArray.length
+        for (var i = 0; i < length; i++) {
+            if (pUserArray[i].user === pUser && pUserArray[i].password === pPassword) {
+                role = pUserArray[i].role
+                break
+            }
+        }
+    }
+    return role
+}
+
+function createSessionUser(user, password, role) {
+    var logged_user = {
+        user: user,
+        password: password,
+        role: role
+    };
+
+    sessionStorage.setItem("loggedUser", JSON.stringify(logged_user));
+}
 
 
-/*
-register functionality begin
-*/
+
+
+
+
 
 function registerNewUser() {
     var reg_user = document.getElementById("user_reg").value;
     var reg_password = document.getElementById("passw_reg").value;
+    var reg_role = "client";
 
     //alert(reg_user);
     var userArray = [];
 
-    if (localStorage.getItem("wUserArray") !== null) {
-        userArray = JSON.parse(localStorage.getItem("wUserArray"));
+    if (localStorage.getItem("lUserArray") !== null) {
+        userArray = JSON.parse(localStorage.getItem("lUserArray"));
     }
 
     var current_reg = {
         user: reg_user,
-        password: reg_password
+        password: reg_password,
+        role: reg_role
     };
 
     userArray.push(current_reg);
 
-    localStorage.setItem("wUserArray", JSON.stringify(userArray));
+    localStorage.setItem("lUserArray", JSON.stringify(userArray));
 
-    //window.location.href = "http://localhost:5000/login"
-    //window.location.href = "http://heroku:5000/login";
+    displayRooms();
 }
 
-/*
-register functionality end
--------------------------------------------------------------------------------------------------------------------------------------
-*/
-
-
-/*
-dashboard functionality begin
--------------------------------------------------------------------------------------------------------------------------------------
-*/
 
 
 
-if (window.location.href.includes("dashboard")) {
-    //un if general para el dashboard y asi podemos poner todos los metodos que necesitemos
+
+function checkSession() {
     checkForValidLoginSession()
     setUserNameOnDashboard()
     w3.includeHTML()
@@ -140,37 +145,47 @@ function checkForValidLoginSession() {
     hacia el login
     */
 
-    if (localStorage.getItem("wUserArray") == null) {
-        window.location.href = "http://localhost:5000/login"
-        //window.location.href = "http://heroku:5000/login";
-    }
-    else {
-        if (localStorage.length == 0) {
-            window.location.href = "http://localhost:5000/login"
-            //window.location.href = "http://heroku:5000/login";
-        }
+    if (sessionStorage.getItem("loggedUser") == null) {
+        hideDivById("logIn");
     }
 }
 
 function setUserNameOnDashboard() {
-    var userArray = JSON.parse(localStorage.getItem("wUserArray"))
-    var currentUser = userArray[0].user
+    var sessionUserArray = JSON.parse(sessionStorage.getItem("loggedUser"))
+    var currentUser = sessionUserArray.user
+    var currentRole = sessionUserArray.role
 
-    var userSpan = document.getElementById("user")
-    userSpan.innerText = "Hello, " + currentUser
+    var userSpan = document.getElementById("sessionUser")
+    userSpan.innerText = "Hello, " + currentRole + " " + currentUser
 }
 
 function logout() {
-    localStorage.removeItem("wUserArray")
-    window.location.href = "http://localhost:5000/"
-    //window.location.href = "http://heroku:5000/";
+    sessionStorage.removeItem("loggedUser")
+    hideDivById("register");
 }
+
+
+
 
 /*
 ************* dashboard functionality end
 */
 
+function displayRooms() {
 
+    hideDivById('rooms');
+    checkSession();
+
+    var roomsArray = JSON.parse(localStorage.getItem("lRoomsArray"));
+    for (var i = 0, length = roomsArray.length; i < length; i++) {
+        var para = document.createElement("li");
+        node = roomsArray[i].name + ": " + roomsArray[i].status;
+        var node = document.createTextNode(node);
+        para.appendChild(node);
+        var element = document.getElementById("li1");
+        element.appendChild(para);
+    }
+}
 
 
 
@@ -179,3 +194,4 @@ function logout() {
 
 
 w3.includeHTML()
+
