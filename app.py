@@ -36,14 +36,19 @@ def contact():
     return render_template("contact.html")
 
 
-@app.route("/profile")
-def profile():
-    return render_template("profile.html")
+@app.route("/menu")
+def menu():
+    return render_template("menu.html")
 
 
 @app.route("/aboutUs")
 def aboutUs():
     return render_template("aboutUs.html")
+
+
+@app.route("/bookRoom")
+def bookRoom():
+    return render_template("bookRoom.html")
 
 
 if __name__ == "__main__":

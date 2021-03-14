@@ -31,9 +31,7 @@ function login() {
 }
 
 
-/*
-************* login functionality begin
-*/
+
 function checkLogin() {
 
     var user = document.getElementById("user").value;
@@ -45,14 +43,12 @@ function checkLogin() {
         if (password !== null && password !== "") {
             var canLogin = checkLoginInfo(user, password, userArray);
             if (canLogin === true) {
-                //need a method to get the role and send it into createSessionUser below
                 var role = getUserRole(user, password, userArray)
                 createSessionUser(user, password, role)
                 displayRooms();
             } else {
                 alert("user or password are not correct");
             }
-
         } else {
             alert("password must not be empty");
         }
@@ -93,7 +89,6 @@ function createSessionUser(user, password, role) {
         password: password,
         role: role
     };
-
     sessionStorage.setItem("loggedUser", JSON.stringify(logged_user));
 }
 
@@ -134,21 +129,18 @@ function registerNewUser() {
 
 function checkSession() {
     checkForValidLoginSession()
-    setUserNameOnDashboard()
     w3.includeHTML()
 }
 
 function checkForValidLoginSession() {
-    /*
-    tengo que ir a buscar el elemento wUserArray, si no esta vacio
-    entonces dejo pasar al dashboard si no es el caso entonces debo redirigir
-    hacia el login
-    */
 
     if (sessionStorage.getItem("loggedUser") == null) {
         hideDivById("logIn");
+    } else {
+        setUserNameOnDashboard()
     }
 }
+
 
 function setUserNameOnDashboard() {
     var sessionUserArray = JSON.parse(sessionStorage.getItem("loggedUser"))
@@ -177,21 +169,109 @@ function displayRooms() {
     checkSession();
 
     var roomsArray = JSON.parse(localStorage.getItem("lRoomsArray"));
+
     for (var i = 0, length = roomsArray.length; i < length; i++) {
+
+        var element = document.getElementById(i);
+        if (element) {
+            element.parentNode.removeChild(element);
+        }
+
         var para = document.createElement("li");
-        node = roomsArray[i].name + ": " + roomsArray[i].status;
-        var node = document.createTextNode(node);
+        room = roomsArray[i].name + ": " + roomsArray[i].status;
+        var node = document.createTextNode(room);
         para.appendChild(node);
-        var element = document.getElementById("li1");
-        element.appendChild(para);
+        var element = document.getElementById("li1").appendChild(para);
+
+        var button = document.createElement("button");
+        button.innerHTML = "Book room"
+        button.setAttribute("id", i)
+        para.setAttribute("id", i)
+        button.setAttribute("onclick", "bookingRoom(this.id)")
+        element.appendChild(button)
     }
+}
+
+function bookingRoom(id) {
+    hideDivById("bookRoom")
+    var i = 0
+    document.getElementById("bookRoomButton").addEventListener("click", function () {
+        if (i === 0) {
+
+            bookingDates(id)
+            i++
+        }
+
+    });
+}
+
+
+function bookingDates(Id) {
+    var time1 = new Date(document.getElementById("checkIn").value);
+    var time2 = new Date(document.getElementById("checkOut").value);
+
+    lYear1 = time1.getFullYear()
+    lMonth1 = time1.getMonth() + 1
+    lDay1 = time1.getDate() + 1
+    lYear2 = time2.getFullYear()
+    lMonth2 = time2.getMonth() + 1
+    lDay2 = time2.getDate() + 1
+    var roomArray = [];
+
+
+    if (lYear1) {
+        if (lYear2) {
+            if (localStorage.getItem("lRoomsBookedArray") !== null) {
+                roomArray = JSON.parse(localStorage.getItem("lRoomsBookedArray"));
+            }
+
+            var current_room = {
+                room: Id,
+                checkIn: {
+                    year: lYear1,
+                    month: lMonth1,
+                    day: lDay1
+                },
+                checkOut: {
+                    year: lYear2,
+                    month: lMonth2,
+                    day: lDay2
+                }
+            }
+
+
+            roomArray.push(current_room);
+
+            localStorage.setItem("lRoomsBookedArray", JSON.stringify(roomArray));
+
+
+            roomArray = JSON.parse(localStorage.getItem("lRoomsArray"));
+
+            roomArray[Id].status = "not available"
+
+            localStorage.setItem("lRoomsArray", JSON.stringify(roomArray));
+        }
+        else {
+            alert("ingrese el check out")
+            bookingRoom(Id)
+        }
+    } else {
+        alert("ingrese el check in")
+        bookingRoom(Id)
+    }
+
+
+
+
+
+
+
+
+
 }
 
 
 
 
 
-
-
 w3.includeHTML()
-
