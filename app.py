@@ -16,9 +16,9 @@ def rooms():
     return render_template("rooms.html")
 
 
-@app.route("/register")
-def register():
-    return render_template("register.html")
+@app.route("/loginMenu")
+def loginMenu():
+    return render_template("loginMenu.html")
 
 
 @app.route("/logIn")
@@ -46,9 +46,24 @@ def aboutUs():
     return render_template("aboutUs.html")
 
 
-@app.route("/bookRoom")
-def bookRoom():
-    return render_template("bookRoom.html")
+@app.route("/dateBooking")
+def dateBooking():
+    return render_template("dateBooking.html")
+
+
+@app.route("/clientMenu")
+def clientMenu():
+    return render_template("clientMenu.html")
+
+
+@app.route("/checkCapacity")
+def checkCapacity():
+    return render_template("checkCapacity.html")
+
+
+@app.route("/myReservations")
+def myReservations():
+    return render_template("myReservations.html")
 
 
 if __name__ == "__main__":

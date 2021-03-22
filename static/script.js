@@ -13,11 +13,34 @@ function hideAllDivW3Includes() {
     }
 }
 
-function login() {
-    var radios = document.getElementsByName('register');
+function registerNewUser() {
+    var reg_user = document.getElementById("user_reg").value;
+    var reg_password = document.getElementById("passw_reg").value;
+    var reg_role = "client";
+
+    var userArray = [];
+
+    if (localStorage.getItem("lUserArray") !== null) {
+        userArray = JSON.parse(localStorage.getItem("lUserArray"));
+    }
+
+    var current_reg = {
+        user: reg_user,
+        password: reg_password,
+        role: reg_role
+    };
+
+    userArray.push(current_reg);
+
+    localStorage.setItem("lUserArray", JSON.stringify(userArray));
+
+    hideDivById("clientMenu")
+}
+
+function loginMenu() {
+    var radios = document.getElementsByName('loginMenu');
     for (var i = 0, length = radios.length; i < length; i++) {
         if (radios[i].checked) {
-            //alert(radios[i].value);
             element = radios[i].value;
             if (element === "logIn") {
                 hideDivById("logIn");
@@ -30,10 +53,7 @@ function login() {
     }
 }
 
-
-
 function checkLogin() {
-
     var user = document.getElementById("user").value;
     var password = document.getElementById("passw").value;
 
@@ -45,7 +65,12 @@ function checkLogin() {
             if (canLogin === true) {
                 var role = getUserRole(user, password, userArray)
                 createSessionUser(user, password, role)
-                displayRooms();
+                if (role === "admin") {
+                    //aqui va lo del admin
+                }
+                else {
+                    hideDivById("clientMenu")
+                }
             } else {
                 alert("user or password are not correct");
             }
@@ -55,7 +80,6 @@ function checkLogin() {
     } else {
         alert("user must not be empty");
     }
-
 }
 
 function checkLoginInfo(user, password, userArray) {
@@ -93,40 +117,7 @@ function createSessionUser(user, password, role) {
 }
 
 
-
-
-
-
-
-function registerNewUser() {
-    var reg_user = document.getElementById("user_reg").value;
-    var reg_password = document.getElementById("passw_reg").value;
-    var reg_role = "client";
-
-    //alert(reg_user);
-    var userArray = [];
-
-    if (localStorage.getItem("lUserArray") !== null) {
-        userArray = JSON.parse(localStorage.getItem("lUserArray"));
-    }
-
-    var current_reg = {
-        user: reg_user,
-        password: reg_password,
-        role: reg_role
-    };
-
-    userArray.push(current_reg);
-
-    localStorage.setItem("lUserArray", JSON.stringify(userArray));
-
-    displayRooms();
-}
-
-
-
-
-
+//--------------------------------------------------------------------------------------------------------------------
 function checkSession() {
     checkForValidLoginSession()
     w3.includeHTML()
@@ -141,7 +132,6 @@ function checkForValidLoginSession() {
     }
 }
 
-
 function setUserNameOnDashboard() {
     var sessionUserArray = JSON.parse(sessionStorage.getItem("loggedUser"))
     var currentUser = sessionUserArray.user
@@ -153,17 +143,13 @@ function setUserNameOnDashboard() {
 
 function logout() {
     sessionStorage.removeItem("loggedUser")
-    hideDivById("register");
+    hideDivById("loginMenu");
 }
 
 
+//----------------------------------------------------------------------------------------------------------------------------------
 
-
-/*
-************* dashboard functionality end
-*/
-
-function displayRooms() {
+function displayRooms(capacity) {
 
     hideDivById('rooms');
     checkSession();
@@ -172,105 +158,137 @@ function displayRooms() {
 
     for (var i = 0, length = roomsArray.length; i < length; i++) {
 
-        var element = document.getElementById(i);
+        var element = document.getElementById("room" + i);
         if (element) {
             element.parentNode.removeChild(element);
         }
 
-        var para = document.createElement("li");
-        room = roomsArray[i].name + ": " + roomsArray[i].status;
-        var node = document.createTextNode(room);
-        para.appendChild(node);
-        var element = document.getElementById("li1").appendChild(para);
+        if (roomsArray[i].capacity == capacity) {
+            var para = document.createElement("li");
+            room = roomsArray[i].name
+            var node = document.createTextNode(room);
+            para.appendChild(node);
+            var element = document.getElementById("li1").appendChild(para);
 
-        var button = document.createElement("button");
-        button.innerHTML = "Book room"
-        button.setAttribute("id", i)
-        para.setAttribute("id", i)
-        button.setAttribute("onclick", "bookingRoom(this.id)")
-        element.appendChild(button)
+            var button = document.createElement("button");
+            button.innerHTML = "Book room"
+            button.setAttribute("id", "room" + i)
+            para.setAttribute("id", "room" + i)
+            button.setAttribute("onclick", "bookingRoom(id)")
+            element.appendChild(button)
+        }
     }
+
+    document.getElementById("roomBooking").addEventListener("click", function () {
+        displayRooms(capacity)
+    });
 }
 
 function bookingRoom(id) {
-    hideDivById("bookRoom")
+    hideDivById("dateBooking")
     var i = 0
     document.getElementById("bookRoomButton").addEventListener("click", function () {
-        if (i === 0) {
+        if (i == 0) {
 
             bookingDates(id)
             i++
         }
-
     });
 }
 
-
 function bookingDates(Id) {
+
     var time1 = new Date(document.getElementById("checkIn").value);
     var time2 = new Date(document.getElementById("checkOut").value);
 
-    lYear1 = time1.getFullYear()
-    lMonth1 = time1.getMonth() + 1
-    lDay1 = time1.getDate() + 1
-    lYear2 = time2.getFullYear()
-    lMonth2 = time2.getMonth() + 1
-    lDay2 = time2.getDate() + 1
-    var roomArray = [];
+    roomArray = JSON.parse(localStorage.getItem("lRoomsBookedArray"));
 
+    if (roomArray[Id].length >= 1) {
 
-    if (lYear1) {
-        if (lYear2) {
-            if (localStorage.getItem("lRoomsBookedArray") !== null) {
-                roomArray = JSON.parse(localStorage.getItem("lRoomsBookedArray"));
+        time1 = JSON.stringify(time1)
+        time2 = JSON.stringify(time2)
+
+        var a = false
+
+        var i
+        for (i = 0; i < roomArray[Id].length; i++) {
+
+            var checkIn = JSON.stringify(roomArray[Id][i].checkIn)
+            var checkOut = JSON.stringify(roomArray[Id][i].checkOut)
+
+            if (time1 <= checkIn && time2 >= checkOut) {
+                a = true
+            } else if (time1 <= checkOut && time2 >= checkIn) {
+                a = true
             }
-
-            var current_room = {
-                room: Id,
-                checkIn: {
-                    year: lYear1,
-                    month: lMonth1,
-                    day: lDay1
-                },
-                checkOut: {
-                    year: lYear2,
-                    month: lMonth2,
-                    day: lDay2
-                }
-            }
-
-
-            roomArray.push(current_room);
-
-            localStorage.setItem("lRoomsBookedArray", JSON.stringify(roomArray));
-
-
-            roomArray = JSON.parse(localStorage.getItem("lRoomsArray"));
-
-            roomArray[Id].status = "not available"
-
-            localStorage.setItem("lRoomsArray", JSON.stringify(roomArray));
         }
-        else {
-            alert("ingrese el check out")
-            bookingRoom(Id)
+
+        if (a == false) {
+            registerBooking(Id, time1, time2)
+            alert("la reserva se realizo con exito")
+        } else {
+            alert("Ya hay reservacion para ese dia")
         }
-    } else {
-        alert("ingrese el check in")
-        bookingRoom(Id)
     }
 
-
-
-
-
-
-
-
-
+    else {
+        if (time2 > time1) {
+            registerBooking(Id, time1, time2)
+            alert("La reserva se realizo con exito")
+        }
+        else {
+            alert("no puede hacer checkIn despues del checkOut")
+        }
+    }
 }
 
+function registerBooking(Id, date1, date2) {
+    if (localStorage.getItem("lRoomsBookedArray") !== null) {
+        var roomArray = [];
 
+        roomArray = JSON.parse(localStorage.getItem("lRoomsBookedArray"));
+    }
+
+    var name = loadUserName()
+
+    var arraynew = {
+        nombre: name,
+        checkIn: date1,
+        checkOut: date2
+    };
+
+    roomArray[Id].push(arraynew);
+
+    localStorage.setItem("lRoomsBookedArray", JSON.stringify(roomArray));
+}
+
+function loadUserName() {
+    var name
+    if (sessionStorage.getItem("loggedUser") !== null) {
+        name = JSON.parse(sessionStorage.getItem("loggedUser"));
+
+        return name.user
+    }
+}
+//-------------------------------------------------------------------------------------------------------------------------
+
+function roomCapacity() {
+    var radios = document.getElementsByName('checkCapacity');
+    for (var i = 0, length = radios.length; i < length; i++) {
+        if (radios[i].checked) {
+            displayRooms(radios[i].value)
+        }
+    }
+}
+
+function clientMenu() {
+    hideDivById('clientMenu');
+    checkSession();
+}
+
+function allReservations() {
+
+}
 
 
 
