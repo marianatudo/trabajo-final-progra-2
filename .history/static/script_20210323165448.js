@@ -299,7 +299,7 @@ function allReservations() {
 
             hideDivById("myReservations")
 
-            for (e = 0; e < roomArray["room" + i].length; e++) {
+            for (f = 0; f < roomArray["room" + i].length; f++) {
                 var table = document.getElementsByTagName('table')[0];
 
 
@@ -309,9 +309,9 @@ function allReservations() {
                 var cell2 = newRow.insertCell(1);
                 var cell3 = newRow.insertCell(2);
 
-                cell1.innerHTML = roomArray["room" + i][e].nombre
-                cell2.innerHTML = roomArray["room" + i][e].checkIn
-                cell3.innerHTML = roomArray["room" + i][e].checkOut
+                cell1.innerHTML = roomArray["room" + i][f].nombre;
+                cell2.innerHTML = roomArray["room" + i][f].checkIn
+                cell3.innerHTML = roomArray["room" + i][f].checkOut
 
             }
         }

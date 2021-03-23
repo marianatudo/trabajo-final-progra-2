@@ -299,7 +299,7 @@ function allReservations() {
 
             hideDivById("myReservations")
 
-            for (e = 0; e < roomArray["room" + i].length; e++) {
+            for (e = 0; e < roomArray["room" + i].length; ++) {
                 var table = document.getElementsByTagName('table')[0];
 
 

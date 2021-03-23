@@ -298,21 +298,14 @@ function allReservations() {
         if (roomArray["room" + i].length > 0) {
 
             hideDivById("myReservations")
+            alert("hola")
 
-            for (e = 0; e < roomArray["room" + i].length; e++) {
-                var table = document.getElementsByTagName('table')[0];
+            var e = roomArray["room" + i].length
+            alert(e)
 
-
-                var newRow = table.insertRow(1);
-
-                var cell1 = newRow.insertCell(0);
-                var cell2 = newRow.insertCell(1);
-                var cell3 = newRow.insertCell(2);
-
-                cell1.innerHTML = roomArray["room" + i][e].nombre
-                cell2.innerHTML = roomArray["room" + i][e].checkIn
-                cell3.innerHTML = roomArray["room" + i][e].checkOut
-
+            for (e in roomArray["room" + i].length) {
+                room = roomArray["room" + i][a].checkIn
+                alert(room)
             }
         }
         i++
