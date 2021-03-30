@@ -288,31 +288,18 @@ function clientMenu() {
 
 function allReservations() {
 
-    var rowCount = document.getElementById("myTable").rows.length;
-
-    if (rowCount > 1) {
-        deleteAllTable(rowCount)
-        insertTable()
-    }
-    else {
-        insertTable()
-    }
-}
-
-function deleteAllTable(row) {
-
-    while (row !== 1) {
-        document.getElementById("myTable").deleteRow(1);
-        row--
-    }
-
-}
-
-function insertTable() {
-
     roomArray = JSON.parse(localStorage.getItem("lRoomsBookedArray"));
 
     var i = 0
+
+    var element = document.getElementById("reservation00");
+    if (element) {
+        while (element) {
+            var element = document.getElementById("reservation00");
+            document.getElementById("reservation00").deleteRow(0);
+        }
+    }
+
 
     while (i < 5) {
         if (roomArray["room" + i].length > 0) {
@@ -328,7 +315,7 @@ function insertTable() {
 
                 var newRow = table.insertRow(1);
 
-                newRow.setAttribute("name", "reservation00")
+                newRow.setAttribute("id", "reservation00")
 
                 var cell1 = newRow.insertCell(0);
                 var cell2 = newRow.insertCell(1);
@@ -344,10 +331,8 @@ function insertTable() {
         }
         i++
     }
+
 }
-
-
-
 
 function clientReservations() {
 
@@ -383,7 +368,9 @@ function clientReservations() {
 
 }
 
+function deleteTable() {
 
+}
 
 
 w3.includeHTML()

@@ -288,69 +288,6 @@ function clientMenu() {
 
 function allReservations() {
 
-    var rowCount = document.getElementById("myTable").rows.length;
-
-    if (rowCount > 1) {
-        deleteAllTable(rowCount)
-        insertTable()
-    }
-    else {
-        insertTable()
-    }
-}
-
-function deleteAllTable(row) {
-
-    while (row !== 1) {
-        document.getElementById("myTable").deleteRow(1);
-        row--
-    }
-
-}
-
-function insertTable() {
-
-    roomArray = JSON.parse(localStorage.getItem("lRoomsBookedArray"));
-
-    var i = 0
-
-    while (i < 5) {
-        if (roomArray["room" + i].length > 0) {
-
-            hideDivById("myReservations")
-
-            for (e = 0; e < roomArray["room" + i].length; e++) {
-
-
-
-                var table = document.getElementById("myTable");
-
-
-                var newRow = table.insertRow(1);
-
-                newRow.setAttribute("name", "reservation00")
-
-                var cell1 = newRow.insertCell(0);
-                var cell2 = newRow.insertCell(1);
-                var cell3 = newRow.insertCell(2);
-                var cell4 = newRow.insertCell(3);
-
-                cell1.innerHTML = roomArray["room" + i][e].nombre
-                cell2.innerHTML = "room" + i
-                cell3.innerHTML = roomArray["room" + i][e].checkIn
-                cell4.innerHTML = roomArray["room" + i][e].checkOut
-
-            }
-        }
-        i++
-    }
-}
-
-
-
-
-function clientReservations() {
-
     roomArray = JSON.parse(localStorage.getItem("lRoomsBookedArray"));
 
     var i = 0
@@ -369,12 +306,12 @@ function clientReservations() {
                 var cell1 = newRow.insertCell(0);
                 var cell2 = newRow.insertCell(1);
                 var cell3 = newRow.insertCell(2);
-                var cell4 = newRow.insertCell(3);
+                var cell3 = newRow.insertCell(3);
 
                 cell1.innerHTML = roomArray["room" + i][e].nombre
-                cell2.innerHTML = "room" + i
-                cell3.innerHTML = roomArray["room" + i][e].checkIn
-                cell4.innerHTML = roomArray["room" + i][e].checkOut
+                cell1.innerHTML = "room" + i
+                cell2.innerHTML = roomArray["room" + i][e].checkIn
+                cell3.innerHTML = roomArray["room" + i][e].checkOut
 
             }
         }
@@ -382,7 +319,6 @@ function clientReservations() {
     }
 
 }
-
 
 
 

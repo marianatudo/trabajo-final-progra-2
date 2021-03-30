@@ -290,6 +290,8 @@ function allReservations() {
 
     var rowCount = document.getElementById("myTable").rows.length;
 
+    alert(rowCount)
+
     if (rowCount > 1) {
         deleteAllTable(rowCount)
         insertTable()
@@ -300,6 +302,8 @@ function allReservations() {
 }
 
 function deleteAllTable(row) {
+
+    alert(row)
 
     while (row !== 1) {
         document.getElementById("myTable").deleteRow(1);

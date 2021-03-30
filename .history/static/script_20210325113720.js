@@ -290,8 +290,11 @@ function allReservations() {
 
     var rowCount = document.getElementById("myTable").rows.length;
 
+    alert(rowCount)
+
     if (rowCount > 1) {
-        deleteAllTable(rowCount)
+        alert("chis")
+        deleteñaña(rowCount)
         insertTable()
     }
     else {
@@ -299,7 +302,10 @@ function allReservations() {
     }
 }
 
-function deleteAllTable(row) {
+function deleteñaña(row) {
+
+    alert(row)
+    alert("siuu")
 
     while (row !== 1) {
         document.getElementById("myTable").deleteRow(1);
@@ -383,7 +389,9 @@ function clientReservations() {
 
 }
 
+function deleteTable() {
 
+}
 
 
 w3.includeHTML()

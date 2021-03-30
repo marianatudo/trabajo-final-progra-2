@@ -288,10 +288,10 @@ function clientMenu() {
 
 function allReservations() {
 
-    var rowCount = document.getElementById("myTable").rows.length;
+    var rowCount = document.getElementById('myTable').rows.length;
 
     if (rowCount > 1) {
-        deleteAllTable(rowCount)
+        deleteTable(rowCount)
         insertTable()
     }
     else {
@@ -299,13 +299,11 @@ function allReservations() {
     }
 }
 
-function deleteAllTable(row) {
+function deleteTable(rowCount) {
 
-    while (row !== 1) {
+    while (rowCount !== 1) {
         document.getElementById("myTable").deleteRow(1);
-        row--
     }
-
 }
 
 function insertTable() {
@@ -328,7 +326,7 @@ function insertTable() {
 
                 var newRow = table.insertRow(1);
 
-                newRow.setAttribute("name", "reservation00")
+                newRow.setAttribute("id", "reservation00")
 
                 var cell1 = newRow.insertCell(0);
                 var cell2 = newRow.insertCell(1);
@@ -383,7 +381,9 @@ function clientReservations() {
 
 }
 
+function deleteTable() {
 
+}
 
 
 w3.includeHTML()
