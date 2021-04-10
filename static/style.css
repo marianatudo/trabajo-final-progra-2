@@ -145,7 +145,7 @@ div.social-menu {
 /* Style the topnav links */
 .topnav a {
     float: left;
-    color: #f2f2f2;
+    color: #000000;
     text-align: center;
     padding: 0px 4px;
     text-decoration: none;
@@ -177,7 +177,7 @@ div.social-menu {
     }
   
     .clearfix {
-      overflow: auto;}
+      overflow: auto;
       padding: 5px;
     }
   
