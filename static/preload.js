@@ -5,6 +5,10 @@ function preLoadUsers() {
         user: "luis",
         password: "123",
         role: "client"
+    }, {
+        user: "andres",
+        password: "esquivel",
+        role: "admin"
     }]
 
     localStorage.setItem("lUserArray", JSON.stringify(userArray))
@@ -17,7 +21,8 @@ function roomsBooked() {
         room1: [],
         room2: [],
         room3: [],
-        room4: []
+        room4: [],
+        room5: []
     }
 
     localStorage.setItem("lRoomsBookedArray", JSON.stringify(roomsBookedArray))
@@ -28,25 +33,35 @@ function preLoadRooms() {
     var roomsArray = [{
         name: "room12",
         capacity: 3,
-        balcon: "yes"
+        balcon: "yes",
+        price: 10
     },
     {
         name: "room23",
         capacity: 5,
-        balcon: "yes"
+        balcon: "yes",
+        price: 20
     },
     {
         name: "room34",
         capacity: 5,
-        balcon: "no"
+        balcon: "no",
+        price: 25
     }, {
         name: "room45",
         capacity: 1,
-        balcon: "yes"
+        balcon: "yes",
+        price: 10
     }, {
         name: "room56",
         capacity: 1,
-        balcon: "no"
+        balcon: "no",
+        price: 15
+    }, {
+        name: "room67",
+        capacity: 3,
+        balcon: "no",
+        price: 25
     }]
 
     localStorage.setItem("lRoomsArray", JSON.stringify(roomsArray))

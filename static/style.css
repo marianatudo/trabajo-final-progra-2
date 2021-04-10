@@ -1,3 +1,5 @@
+
+
 body {
     background-color: #d8d8d8;
 }
@@ -58,4 +60,102 @@ div.social-menu {
 }
 .social-menu ul li:nth-child(5) a:hover {
     background-color: #0077B5;
+}
+
+#deleteTable {
+    cursor: pointer;
+    position: border-box;
+  }
+  
+#deleteTable:hover {
+    background: rgb(245, 0, 0);
+}
+
+#table:hover {
+    background-color: #eee;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.myTable {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.myTable thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+}
+
+
+.myTable th,
+.myTable td {
+    padding: 12px 15px;
+}
+
+
+
+.myTable tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.myTable tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.myTable tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+
+
+
+
+.myTable tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+
+
+
+
+.topnav a {
+    float: left;
+    display: block;
+    color: #0c0a0a;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+  /* Change color on hover */
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+
+
+
+  body{
+    font-family: "Lato", sans-serif;
+    background-color: rgb(248, 218, 155);
 }

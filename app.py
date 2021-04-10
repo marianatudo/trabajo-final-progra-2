@@ -11,6 +11,16 @@ def home():
     return render_template("index.html")
 
 
+@app.route("/dashboard")
+def dashboard():
+    return render_template("dashboard.html")
+
+
+@app.route("/adminDashboard")
+def adminDashboard():
+    return render_template("adminDashboard.html")
+
+
 @app.route("/rooms")
 def rooms():
     return render_template("rooms.html")
@@ -54,6 +64,11 @@ def dateBooking():
 @app.route("/clientMenu")
 def clientMenu():
     return render_template("clientMenu.html")
+
+
+@app.route("/adminMenu")
+def adminMenu():
+    return render_template("adminMenu.html")
 
 
 @app.route("/checkCapacity")
