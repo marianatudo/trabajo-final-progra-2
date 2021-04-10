@@ -81,5 +81,10 @@ def myReservations():
     return render_template("myReservations.html")
 
 
+@app.route("/landingPage")
+def landingPage():
+    return render_template("landingPage.html")
+
+
 if __name__ == "__main__":
     app.run(debug=True)
