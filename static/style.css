@@ -27,7 +27,7 @@ div.social-menu {
     transition: .5s;
 }
 .social-menu ul li .fa:hover {
-    color: #ffffff;
+    color: #e7abab;
 }
 .social-menu ul li a {
     position: relative;
