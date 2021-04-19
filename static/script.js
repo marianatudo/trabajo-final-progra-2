@@ -1,3 +1,4 @@
+
 function hideDivById(divId) {
     hideAllDivW3Includes()
     var element = document.getElementById(divId)
