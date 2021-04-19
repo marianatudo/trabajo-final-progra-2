@@ -10,20 +10,24 @@
     <title>Hotel Tekapa</title>
 </head>
 
-<body>
+<body id="body" style="background-image: url(/static/images/fondotodo.jpg)">
 
-    <div class="header">
-        <h1>My Website</h1>
-        <p>Resize the browser window to see the effect.</p>
+    <div class="topbar">
+        <h1 id="title">Hotel Tekapa</h1>
     </div>
 
-    <div class="topnav">
+    <hr>
 
-        <a href="#" onclick="hideDivById('loginMenu')">Login</a>
-        <a href="#">Profile</a>
-        <a href="#">About us</a>
-        <a href="#">Menu</a>
-        <a href="#">Contact</a>
+
+
+    <div id="titulos" class="topnav">
+        <div id="jumm" name="linkers" class="container">
+            <a href="#" onclick="hideDivById('loginMenu')">Login</a>
+            <a href="#">Profile</a>
+            <a href="#">About us</a>
+            <a href="#">Menu</a>
+            <a href="#">Contact</a>
+        </div>
     </div>
 
     <div class="main">
@@ -39,15 +43,12 @@
         <div style="display:none" id="dateBooking" name="pages" w3-include-html="{{url_for('dateBooking')}}"></div>
         <div style="display:none" id="clientMenu" name="pages" w3-include-html="{{url_for('clientMenu')}}"></div>
         <div style="display:none" id="adminMenu" name="pages" w3-include-html="{{url_for('adminMenu')}}"></div>
-        <div style="display:none" id="checkCapacity" name="pages" w3-include-html="{{url_for('checkCapacity')}}">
-        </div>
+        <div style="display:none" id="checkCapacity" name="pages" w3-include-html="{{url_for('checkCapacity')}}"></div>
         <div style="display:none" id="myReservations" name="pages" w3-include-html="{{url_for('myReservations')}}">
         </div>
-        <div style="display:block" id="landingPage" name="pages" w3-include-html="{{url_for('landingPage')}}">
-        </div>
+        <div style="display:block" id="landingPage" name="pages" w3-include-html="{{url_for('landingPage')}}"></div>
 
     </div>
-    <br>
 
     <div class="social-menu">
         <ul>
