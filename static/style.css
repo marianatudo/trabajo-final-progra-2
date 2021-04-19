@@ -1,6 +1,7 @@
 
-
-
+* {
+  box-sizing: border-box;
+}
 
 body {
   font-family: Arial;
@@ -13,10 +14,13 @@ body {
   padding: 30px;
   text-align: center;
   background: white;
+  color: #111010;
+  font-family: fantasy;
 }
 
 .header h1 {
   font-size: 50px;
+  color:rgb(245, 240, 239); 
 }
 
 /* Style the top navigation bar */
@@ -52,20 +56,15 @@ body {
 .rightcolumn {
   float: left;
   width: 25%;
-  background-color: #f1f1f1;
+  background-color: #4134f3;
   padding-left: 20px;
 }
 
-/* Fake image */
-.fakeimg {
-  background-color: #aaa;
-  width: 100%;
-  padding: 20px;
-}
+
 
 /* Add a card effect for articles */
 .card {
-  background-color: white;
+  background-color: rgb(184, 125, 37);
   padding: 20px;
   margin-top: 20px;
 }
@@ -81,7 +80,7 @@ body {
 .footer {
   padding: 20px;
   text-align: center;
-  background: #ddd;
+  background: rgb(39, 36, 36);
   margin-top: 20px;
 }
 
@@ -100,7 +99,6 @@ body {
     width: 100%;
   }
 }
-
 
 
 
@@ -159,7 +157,6 @@ body {
 
 .social-menu ul {
   position: absolute;
-  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 0;
@@ -217,8 +214,3 @@ div.social-menu {
 }
 
 
-body {
-  font-family: Arial;
-  padding: 10px;
-  background: #e9b91c;
-}
