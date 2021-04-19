@@ -86,15 +86,5 @@ def landingPage():
     return render_template("landingPage.html")
 
 
-@app.route("/food")
-def food():
-    return render_template("food.html")
-
-
-@app.route("/foodTable")
-def foodTable():
-    return render_template("foodTable.html")
-
-
 if __name__ == "__main__":
     app.run(debug=True)
