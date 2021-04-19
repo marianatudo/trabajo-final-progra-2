@@ -204,58 +204,6 @@ function bookingRoom(id, price) {
     });
 }
 
-function displayFood(capacity) {
-
-    hideDivById('food');
-    checkSession();
-
-    var services = JSON.parse(localStorage.getItem("services"));
-
-    for (var i = 0, length = services.length; i < length; i++) {
-
-        var element1 = document.getElementById("food" + i);
-        if (element1) {
-            element1.parentNode.removeChild(element1);
-        }
-
-        var para = document.createElement("li");
-        para.innerHTML = services[i].food
-        var element = document.getElementById("li11").appendChild(para);
-
-        var button = document.createElement("button");
-        button.innerHTML = "Order"
-        button.setAttribute("id", "food" + i)
-        para.setAttribute("id", "food" + i)
-        button.setAttribute("onclick", 'foodBookedArray( " ' + services[i].food + ' " )');
-        element.appendChild(button)
-    }
-}
-
-function foodBookedArray(hola) {
-
-    var foodArray = [];
-
-    if (localStorage.getItem("servicesBooked") !== null) {
-        foodArray = JSON.parse(localStorage.getItem("servicesBooked"));
-    }
-
-    var name1 = loadUserName()
-
-    var now = new Date();
-
-    var current_reg = {
-        name: name1,
-        date: now,
-        food: hola
-    };
-
-    foodArray.push(current_reg);
-
-    localStorage.setItem("servicesBooked", JSON.stringify(foodArray));
-
-    alert("la orden ha sido guardada")
-}
-
 function bookingDates(Id, price) {
 
     var time1 = new Date(document.getElementById("checkIn").value);
@@ -373,14 +321,9 @@ function deleteAllTable(row) {
         document.getElementById("myTable").deleteRow(1);
         row--
     }
-}
 
-function deleteAllFoodTable(row) {
 
-    while (row !== 1) {
-        document.getElementById("myFoodTable").deleteRow(1);
-        row--
-    }
+
 }
 
 
@@ -489,72 +432,6 @@ function deleteItem(i, e) {
 }
 
 
-function food() {
 
-    var rowCount = document.getElementById("myFoodTable").rows.length;
-
-    if (rowCount > 1) {
-        deleteAllFoodTable(rowCount)
-        insertTableFood()
-    }
-    else {
-        insertTableFood()
-    }
-}
-
-
-function insertTableFood() {
-
-    foodArray = JSON.parse(localStorage.getItem("servicesBooked"));
-
-    hideDivById("foodTable")
-
-    var user = loadUserName()
-
-    for (i = 0; i < foodArray.length; i++) {
-
-        if (foodArray[i] != null) {
-
-            if (user == foodArray[i].name) {
-
-                var table = document.getElementById("myFoodTable");
-
-                var newRow = table.insertRow(1);
-
-                newRow.setAttribute("name", "reservation00")
-
-                newRow.setAttribute("class", "active-row")
-
-                var cell1 = newRow.insertCell(0);
-                var cell2 = newRow.insertCell(1);
-                var cell3 = newRow.insertCell(2);
-                var cell4 = newRow.insertCell(3);
-                cell4.setAttribute("type", "span")
-                cell4.setAttribute("id", "deleteTable")
-                cell4.innerHTML = "&times;";
-                cell4.setAttribute("onclick", "deleteFoodItem( " + i + " )")
-                newRow.appendChild(cell4);
-
-                cell1.innerHTML = foodArray[i].name
-                cell2.innerHTML = foodArray[i].date
-                cell3.innerHTML = foodArray[i].food
-
-            }
-
-
-        }
-    }
-}
-
-function deleteFoodItem(i) {
-
-    foodArray = JSON.parse(localStorage.getItem("servicesBooked"));
-
-    delete foodArray[i]
-
-    localStorage.setItem("servicesBooked", JSON.stringify(foodArray));
-
-    food()
-}
 
 w3.includeHTML()
