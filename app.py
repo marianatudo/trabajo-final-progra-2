@@ -96,5 +96,10 @@ def foodTable():
     return render_template("foodTable.html")
 
 
+@app.route("/instalaciones")
+def instalaciones():
+    return render_template("instalaciones.html")
+
+
 if __name__ == "__main__":
     app.run(debug=True)
