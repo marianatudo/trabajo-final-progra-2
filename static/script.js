@@ -232,7 +232,7 @@ function displayFood(capacity) {
     }
 }
 
-function foodBookedArray(hola) {
+function foodBookedArray(food1) {
 
     var foodArray = [];
 
@@ -247,7 +247,7 @@ function foodBookedArray(hola) {
     var current_reg = {
         name: name1,
         date: now,
-        food: hola
+        food: food1
     };
 
     foodArray.push(current_reg);
