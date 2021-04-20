@@ -492,17 +492,35 @@ function deleteItem(i, e) {
 
 function food() {
 
+    hideDivById("foodTable")
+
     var rowCount = document.getElementById("myFoodTable").rows.length;
 
-    if (rowCount > 1) {
-        deleteAllFoodTable(rowCount)
-        insertTableFood()
+    var user = JSON.parse(sessionStorage.getItem("loggedUser"));
+
+    if (user.role == "client") {
+        if (rowCount > 1) {
+
+            deleteAllFoodTable(rowCount)
+            insertTableFood()
+        }
+        else {
+            insertTableFood()
+        }
     }
     else {
-        insertTableFood()
-    }
-}
+        if (rowCount > 1) {
 
+            deleteAllFoodTable(rowCount)
+            foodAdmin()
+        }
+        else {
+            foodAdmin()
+        }
+    }
+
+
+}
 
 function insertTableFood() {
 
@@ -556,6 +574,42 @@ function deleteFoodItem(i) {
     localStorage.setItem("servicesBooked", JSON.stringify(foodArray));
 
     food()
+}
+
+function foodAdmin() {
+    foodArray = JSON.parse(localStorage.getItem("servicesBooked"));
+
+    hideDivById("foodTable")
+
+    var user = loadUserName()
+
+    for (i = 0; i < foodArray.length; i++) {
+
+        if (foodArray[i] != null) {
+
+
+            var table = document.getElementById("myFoodTable");
+
+            var newRow = table.insertRow(1);
+
+            newRow.setAttribute("name", "reservation00")
+
+            newRow.setAttribute("class", "active-row")
+
+            var cell1 = newRow.insertCell(0);
+            var cell2 = newRow.insertCell(1);
+            var cell3 = newRow.insertCell(2);
+            var cell4 = newRow.insertCell(3);
+
+            cell1.innerHTML = foodArray[i].name
+            cell2.innerHTML = foodArray[i].date
+            cell3.innerHTML = foodArray[i].food
+
+        }
+
+
+
+    }
 }
 
 w3.includeHTML()

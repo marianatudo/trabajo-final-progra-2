@@ -166,7 +166,7 @@ body {
 }
 div.social-menu {
   position: absolute; /* cuando ponemos esto le podemos hacer todo lo que queramos con BOTTOM, LEFT, RIGHT, UP*/
-  bottom: -70%;
+  bottom: -212%;
   right: 50%;
   
 }
