@@ -177,11 +177,6 @@ function displayRooms(capacity) {
             room1 = "price: $" + roomsArray[i].price
             var room2 = document.createTextNode(room1);
             para.appendChild(room2);
-            var sii = document.createElement("br");
-            para.appendChild(sii)
-            room2 = "balcon: " + roomsArray[i].balcon
-            var room3 = document.createTextNode(room2);
-            para.appendChild(room3);
             var element = document.getElementById("li1").appendChild(para);
 
             var button = document.createElement("button");
