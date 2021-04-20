@@ -67,6 +67,27 @@ function preLoadRooms() {
     localStorage.setItem("lRoomsArray", JSON.stringify(roomsArray))
 }
 
+function services() {
+
+    var servicesArray = [{
+        food: "hamburguesa"
+    },
+    {
+        food: "pizza"
+    }]
+
+    localStorage.setItem("services", JSON.stringify(servicesArray))
+}
+
+function servicesBooked() {
+
+    var servicesBookedArray = []
+
+    localStorage.setItem("servicesBooked", JSON.stringify(servicesBookedArray))
+}
+
 preLoadUsers()
 preLoadRooms()
 roomsBooked()
+services()
+servicesBooked()
